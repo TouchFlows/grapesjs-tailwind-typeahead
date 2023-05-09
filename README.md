@@ -116,7 +116,7 @@ const editor = grapesjs.init({
 Clone the repository
 
 ```sh
-$ git clone https://github.com/marktamis/grapesjs-tailwind-typeahead.git
+$ git clone https://github.com/@TouchFlows/grapesjs-tailwind-typeahead.git
 $ cd grapesjs-tailwind-typeahead
 ```
 
