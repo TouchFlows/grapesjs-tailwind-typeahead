@@ -1,0 +1,116 @@
+export const css = `
+.typeahead-standalone {
+  position: relative;
+  width:  100%;
+  color: #fff;
+  text-align: left;
+}
+
+.typeahead-standalone .tt-input {
+  width: 100%;
+  background: transparent;
+  z-index: 1
+}
+
+.typeahead-standalone .tt-hint {
+  background: #363636;
+  color: #fff;
+  cursor: default;  
+  -webkit-user-select: none;
+  user-select: none;
+  z-index: 0
+}
+
+.typeahead-standalone .tt-list {
+  background: #363636;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+  overflow: auto;
+  position: absolute;
+  width: 98%;
+  z-index: 1000
+}
+
+.typeahead-standalone .tt-list.tt-hide {
+  display: none
+}
+
+.typeahead-standalone .tt-list div[class^=tt-] {
+  padding: 5px
+}
+
+.typeahead-standalone .tt-list .tt-suggestion.tt-selected,.typeahead-standalone .tt-list .tt-suggestion:hover {
+  background: #804f7b;
+  cursor: pointer
+}
+
+.typeahead-standalone .tt-list .tt-suggestion .tt-highlight {
+  font-weight: 900;
+  color: #3b97e3;
+}
+
+.typeahead-standalone .tt-list .tt-group {
+  background: #363636
+}
+.typeahead-standalone .preview {
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  right: 10px;
+  border: 1px solid #313131;
+}
+.typeahead-standalone .property {
+  position: absolute;
+  min-width: 20px;
+  max-width: 150px;
+  text-overflow: ellipsis;
+  right: 10px;
+  color: #aaa;
+}
+.gjs-clm-tag-status {
+  display: none;
+}
+
+.tw-logo { 
+	background-position: center;
+  background-repeat: no-repeat;
+	background-image: 
+	url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9IjAgMCA1MSAzMSIgc3R5bGU9IndpZHRoOmF1dG87aGVpZ2h0OjEuMjVyZW0iPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjUuNTE3IDBDMTguNzEyIDAgMTQuNDYgMy4zODIgMTIuNzU4IDEwLjE0NmMyLjU1Mi0zLjM4MiA1LjUyOS00LjY1IDguOTMxLTMuODA1IDEuOTQxLjQ4MiAzLjMyOSAxLjg4MiA0Ljg2NCAzLjQzMiAyLjUwMiAyLjUyNCA1LjM5OCA1LjQ0NSAxMS43MjIgNS40NDUgNi44MDQgMCAxMS4wNTctMy4zODIgMTIuNzU4LTEwLjE0NS0yLjU1MSAzLjM4Mi01LjUyOCA0LjY1LTguOTMgMy44MDQtMS45NDItLjQ4Mi0zLjMzLTEuODgyLTQuODY1LTMuNDMxQzM0LjczNiAyLjkyIDMxLjg0MSAwIDI1LjUxNyAwek0xMi43NTggMTUuMjE4QzUuOTU0IDE1LjIxOCAxLjcwMSAxOC42IDAgMjUuMzY0YzIuNTUyLTMuMzgyIDUuNTI5LTQuNjUgOC45My0zLjgwNSAxLjk0Mi40ODIgMy4zMyAxLjg4MiA0Ljg2NSAzLjQzMiAyLjUwMiAyLjUyNCA1LjM5NyA1LjQ0NSAxMS43MjIgNS40NDUgNi44MDQgMCAxMS4wNTctMy4zODEgMTIuNzU4LTEwLjE0NS0yLjU1MiAzLjM4Mi01LjUyOSA0LjY1LTguOTMxIDMuODA1LTEuOTQxLS40ODMtMy4zMjktMS44ODMtNC44NjQtMy40MzItMi41MDItMi41MjQtNS4zOTgtNS40NDYtMTEuNzIyLTUuNDQ2eiIgZmlsbD0iIzM4YmRmOCI+PC9wYXRoPjwvc3ZnPg==')
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: rgba(255, 255, 255, 0.1);
+	color: #d5d3d5;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #322931;
+}
+
+/* Style the tab content */
+.tabcontent.active {
+  display: block;
+}
+
+.tabcontent:not(.active) {
+  display: none;
+}
+`

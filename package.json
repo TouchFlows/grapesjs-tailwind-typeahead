@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/@TouchFlows/grapesjs-tailwind-typeahead.git"
+    "url": "https://github.com/touchflows/grapesjs-tailwind-typeahead.git"
   },
   "scripts": {
     "start": "grapesjs-cli serve",
@@ -17,6 +17,7 @@
     "plugin"
   ],
   "devDependencies": {
+    "eslint": "^8.40.0",
     "grapesjs-cli": "^4.0.1"
   },
   "license": "MIT",
