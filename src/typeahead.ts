@@ -1,4 +1,4 @@
-import typeahead from "typeahead-standalone"
+import typeahead from "./typeahead/typeahead"
 import type { Editor } from 'grapesjs';
 import { tailwindSuggestions } from "./suggestions"
 
@@ -16,7 +16,7 @@ export const addTypeAhead = (editor: Editor, options: any) => {
     },
     highlight: true,
     templates: {
-      suggestion: (item: any, _resultSet) => {
+      suggestion: (item: any, _resultSet: any) => {
           
         const propSpan =
           item.value.includes("#") || item.property.includes("rgb") || item.value.includes("gradient")

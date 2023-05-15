@@ -1,7 +1,7 @@
 import type { Editor } from "grapesjs"
-import { tailwindSuggestions } from "./suggestions"
-import { appendDirectives, insert } from "./utils"
-import { clearTypeahead, addTypeAhead } from "./typeahead"
+import { tailwindSuggestions } from "./suggestions.js"
+import { appendDirectives, insert } from "./utils.js"
+import { clearTypeahead, addTypeAhead } from "./typeahead.js"
 
 export default (editor: Editor, options: any = {}) => {
 	// Editor style prefix (still needed?)

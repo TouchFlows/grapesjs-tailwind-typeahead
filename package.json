@@ -1,20 +1,21 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.2.3",
-  "exports": {
-    ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
-    }
-  },
+  "version": "1.2.6",
   "description": "Grapesjs Tailwind Typeahead Plugin",
   "type": "module",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
+  "main": "dist/umd/index.js",
+  "module": "dist/es/index.js",
+  "unpkg": "./dist/umd/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/grapesjs-tailwind-typeahead.js",
+      "require": "./dist/grapesjs-tailwind-typeahead.umd.cjs"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/touchflows/grapesjs-tailwind-typeahead.git"
@@ -37,6 +38,7 @@
     "@types/node": "^20.1.4",
     "grapesjs": "^0.21.1",
     "rollup-plugin-typescript-paths": "^1.4.0",
+    "terser": "^5.17.3",
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.5",
@@ -45,6 +47,6 @@
   "author": "Mark Tamis",
   "license": "MIT",
   "dependencies": {
-    "typeahead-standalone": "^4.20.1"
+    "grapesjs-tailwind-typeahead": "grapesjs-tailwind-typeahead-1.2.5.tgz"
   }
 }

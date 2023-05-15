@@ -1,34 +1,21 @@
 import { defineConfig } from "vite";
 import dts from 'vite-plugin-dts'
-
-//import typescript from "@rollup/plugin-typescript";
 import path from "path";
-//import { typescriptPaths } from "rollup-plugin-typescript-paths";
 
+/** @type {import('vite').UserConfig} */
 export default defineConfig({
-  //plugins: [],
-  resolve: {
-    alias: [
-      {
-        find: "~",
-        replacement: path.resolve(__dirname, "./src"),
-      },
-    ],
-  },
-  server: {
-    port: 3000,
-  },
-
   build: {
-    manifest: true,
+    outDir: 'dist',
+    manifest: false,
     minify: true,
     reportCompressedSize: true,
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: 'grapesjs-tailwind-typeahead',
-      fileName: "index",
-      formats: ["es", "cjs"],
+      name: 'grapesjsTailwindTypeahead',
+      fileName: (format) => `${format}/index.js`,
+      formats: ["es", "cjs", "umd"],
     },
+    
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
@@ -37,19 +24,12 @@ export default defineConfig({
           return assetInfo.name;
         },
       },
-      external: [],
-      /*plugins: [
-        typescriptPaths({
-          preserveExtensions: true,
-        }),
-        typescript({
-          outDir: 'dist',
-        }),
-      ],    */  
     },
   },
-  plugins: [dts({
-    outputDir: 'dist/types'
-  })],
+  plugins: [
+    dts({
+      outputDir: 'dist/types'
+    }),
+  ],
   
 });

@@ -18,7 +18,7 @@ To help you in this process here below you will find the necessary HTML/CSS/JS, 
 ### HTML
 ```html
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-<link href="https://unpkg.com/grapesjs-tailwind-typeahead/dist/css/grapesjs-tailwind-typeahead.css" rel="stylesheet">
+<link href="https://unpkg.com/grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.css" rel="stylesheet">
 <script type="module" src="https://unpkg.com/grapesjs"></script>
 <script type="module" src="https://unpkg.com/grapesjs-tailwind-typeahead"></script>
 
@@ -60,6 +60,8 @@ const directives =
   `@tailwind base;
   @tailwind components;
   @tailwind utilities;`
+
+const escapeName = (name) => `${name}`.trim().replace(/([^a-z0-9\[\]\w-:/]+)/gi, '-')
 
 const editor = grapesjs.init({
     height: '100%',
