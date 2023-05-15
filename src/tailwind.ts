@@ -1,12 +1,14 @@
+import type { Editor } from "grapesjs"
 import { tailwindSuggestions } from "./suggestions"
 import { appendDirectives, insert } from "./utils"
 import { clearTypeahead, addTypeAhead } from "./typeahead"
 
-export default (editor, options = {}) => {
+export default (editor: Editor, options: any = {}) => {
 	// Editor style prefix (still needed?)
-	const prefix = editor.Config.selectorManager.pStylePrefix
+	const prefix = editor.Config.selectorManager?.stylePrefix || 'gjs-'
 
-	const appendTailwindCss = async (frame) => {
+	const appendTailwindCss = async (frame: HTMLIFrameElement) => {
+		// @ts-ignore
 		const iframe = frame.view.getEl()
 
 		if (!iframe) return
@@ -15,26 +17,27 @@ export default (editor, options = {}) => {
 
 		const init = () => {
 			tailwindSuggestions(editor, iframe, '')
-			const el = insert(top.document, 'typeahead', 'style', {})
-			el.innerHTML =  options.suggestions.css
 
 			addTypeAhead(editor, options)
 
 			// Do not show the selector
+			// @ts-ignore
 			editor.getContainer().querySelector(`.${prefix}clm-header-status`).style.display = "none"
+			// @ts-ignore
 			editor.getContainer().querySelector(`.${prefix}clm-sels-info`).style.display = "none"
 		}
 		// add the tailwind directives to a style element
 		appendDirectives(editor)
 
-		const doc = iframe.contentDocument
-
 		const tw = insert(iframe.contentDocument, 'tailwindcss', 'script', {src: tailwindPlayCdn + (plugins.length ? `?plugins=${plugins.join()}` : "")})
+		// @ts-ignore
 		tw.onload = init
 	}
 
-	editor.Canvas.getModel()["on"]("change:frames", (_m, frames) => {
+	// @ts-ignore
+	editor.Canvas.getModel()["on"]("change:frames", (_m, frames: HTMLIFrameElement[]) => {
 		frames.forEach((frame) =>
+		// @ts-ignore
 			frame.once("loaded", () => {
 				appendTailwindCss(frame)
 			})
@@ -42,7 +45,7 @@ export default (editor, options = {}) => {
 	})
 
 	editor.on("device:select", () => {
-		clearTypeahead(editor)
+		clearTypeahead(editor, options)
 		addTypeAhead(editor, options)
 	})
 }

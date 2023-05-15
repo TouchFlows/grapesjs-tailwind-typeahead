@@ -1,10 +1,11 @@
+import type { Editor, Plugin } from "grapesjs"
+import './grapesjs-tailwind-typeahead.css'
 import loadCommands from "./commands"
 import loadTailwind from "./tailwind"
-import { css } from "./tw-css"
 import devices from "./devices"
 import en from "./locale/en"
 
-const plugin = (editor, opts = {}) => {
+const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 	const options = {
 		...{
 			i18n: {},
@@ -13,7 +14,6 @@ const plugin = (editor, opts = {}) => {
 			plugins: [],
 			devices: devices,
 			suggestions: {
-				css: css,
 				limit: 12
 			}
 		},
@@ -27,8 +27,12 @@ const plugin = (editor, opts = {}) => {
 		})
 
 	if (!!options.config) {
+		// @ts-ignore
 		editor.getModel().set("tailwind-config", options.config)
-	} else if (editor.getModel().get("tailwind-config") === undefined) {
+	} else 
+	// @ts-ignore
+	if (editor.getModel().get("tailwind-config") === undefined) {
+		// @ts-ignore
 		editor.getModel().set("tailwind-config", {
 			content: [],
 			theme: {
@@ -38,8 +42,12 @@ const plugin = (editor, opts = {}) => {
 		})
 	}
 	if (!!options.directives) {
+		// @ts-ignore
 		editor.getModel().set("tailwind-directives", options.directives)
-	} else if (editor.getModel().get("tailwind-directives") === undefined) {
+	} else 
+	// @ts-ignore
+	if (editor.getModel().get("tailwind-directives") === undefined) {
+		// @ts-ignore
 		editor.getModel().set(
 			"tailwind-directives",
 			'@tailwind base;\n@tailwind components;\n@tailwind utilities;'
