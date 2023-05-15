@@ -11,9 +11,8 @@ For working with different screen size, change to the device and start the typea
 This plugin will generation most selectors (6000+) but not the base, component and utilities directives classes yet
 
 [DEMO](##)
-> **Provide a live demo of your plugin**
-For a better user engagement create a simple live demo by using services like [JSFiddle](https://jsfiddle.net) [CodeSandbox](https://codesandbox.io) [CodePen](https://codepen.io) and link it here in your README (attaching a screenshot/gif will also be a plus).
-To help you in this process here below you will find the necessary HTML/CSS/JS, so it just a matter of copy-pasting on some of those services. After that delete this part and update the link above
+
+Find a live demo here [GrapesJS Tailwind CSS Typeahead Demo](https://demo.touchflows.com/twta/index.html)
 
 ### HTML
 ```html
@@ -143,7 +142,8 @@ body, html {
 
 | Option | Description | Default |
 |-|-|-
-| `option1` | Description option | `default value` |
+| `config` | Tailwind CSS configuration | {} |
+| `directives` | Tailwind CSS directives | `@tailwind base; @tailwind components; @tailwind utilities;` |
 
 
 
