@@ -1,4 +1,4 @@
-export const tailwindSuggestions = (editor,frame, devicePrefix) => {
+export const tailwindSuggestions = (editor, frame, devicePrefix) => {
 	const tailwind = frame.contentWindow.tailwind
   tailwind.config = editor.getModel().get("tailwind-config")
 	const fullConfig = tailwind.resolveConfig(tailwind.config)

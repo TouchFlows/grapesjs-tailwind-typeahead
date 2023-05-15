@@ -29,7 +29,7 @@ export const clearTypeahead = (editor, options) => {
 
   let devicePrefix = selected.id === "desktop" ? '' : `${selected.id}:`
 
-  tailwindSuggestions(editor.Canvas.getFrameEl(), devicePrefix)
+  tailwindSuggestions(editor, editor.Canvas.getFrameEl(), devicePrefix)
 
   const tagsField = window.document.getElementById(`${prefix}clm-tags-field`)
   const inputField = tagsField.querySelector(`#${prefix}clm-new`)
