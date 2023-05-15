@@ -1,13 +1,17 @@
-export const tailwindSuggestions = (editor, frame, devicePrefix) => {
-	const tailwind = frame.contentWindow.tailwind
+import type { Editor } from "grapesjs"
+
+export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
+	// @ts-ignore
+	const tailwind = frame.contentWindow?.tailwind
+	// @ts-ignore
   tailwind.config = editor.getModel().get("tailwind-config")
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
 
 	let entries = [],
-		property = "",
-		nodeNames = []
+		property: string | Node = "",
+		nodeNames: string[] = []
 
-	function baseClass(base) {
+	function baseClass(base: string) {
 		switch (base) {
 			case "accentColor":
 				return "accent"
@@ -129,13 +133,14 @@ export const tailwindSuggestions = (editor, frame, devicePrefix) => {
 		}
 	}
 
-	const treeWalker = (node, tag) => {
+	const treeWalker = (node: Node, tag: string) => {
 		Array.from(Object.entries(node)).forEach(function callback(nodeOrName) {
 			if (typeof nodeOrName[1] == "object") {        
 				treeWalker(nodeOrName[1], `${tag}-${nodeOrName[0]}`)
 			} else {
         if(nodeOrName[0] !== 'lineHeight') {
-          const lastSelector = tag.split('-').pop()
+					// @ts-ignore
+          const lastSelector: string = tag.split('-').pop()
           let label = nodeOrName[0] === "DEFAULT" || 
             ['xs','sm','base','lg','xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl'].includes(lastSelector) ||
             [
@@ -151,12 +156,13 @@ export const tailwindSuggestions = (editor, frame, devicePrefix) => {
 		})
 	}
 
-	Array.from(Object.entries(fullConfig.theme)).forEach(function callback(root, i) {
+	Array.from(Object.entries(fullConfig.theme)).forEach(function callback(root, _i) {
 		property = root[0]
 
 		const base = baseClass(root[0])
 		nodeNames = []
 		nodeNames.push(base)
+		// @ts-ignore
 		treeWalker(root[1], base)
 	})
 	// Missing padding & margin definitions
@@ -165,7 +171,7 @@ export const tailwindSuggestions = (editor, frame, devicePrefix) => {
 	const spacing = Object.entries(tailwind.defaultTheme.spacing)
 	for (const [nameKey, nameValue] of Object.entries(name)) {
 		for (const [positionKey, positionValue] of Object.entries(position)) {
-			for (const [spacingKey, spacingValue] of Object.entries(spacing)) {
+			for (const [_spacingKey, spacingValue] of Object.entries(spacing)) {
 				entries.push({ label: `${devicePrefix}${nameKey}${positionKey}-${spacingValue[0]}`, value: spacingValue[1], property: `${nameValue}${positionValue}` })
 			}
 		}

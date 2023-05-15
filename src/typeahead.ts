@@ -1,17 +1,23 @@
 import typeahead from "typeahead-standalone"
+import type { Editor } from 'grapesjs';
 import { tailwindSuggestions } from "./suggestions"
 
-export const addTypeAhead = (editor, options) => {
-  const prefix = editor.Config.selectorManager.pStylePrefix
+export const addTypeAhead = (editor: Editor, options: any) => {
+  const prefix = editor.Config.selectorManager?.stylePrefix || 'gjs-'
+
+  const input = window.document.querySelector(`#${prefix}clm-new`)  as HTMLInputElement
+  // @ts-ignore
   window.tt = typeahead({
-    limit: options.suggestions.limit,
-    input: window.document.querySelector(`#${prefix}clm-new`),
+    limit: options.suggestions?.limit,
+    input: input,
     source: {
+      // @ts-ignore
       local: editor.Canvas.getWindow().tailwind.suggestions
     },
     highlight: true,
     templates: {
-      suggestion: (item, resultSet) => {
+      suggestion: (item: any, _resultSet) => {
+          
         const propSpan =
           item.value.includes("#") || item.property.includes("rgb") || item.value.includes("gradient")
             ? `<span class="preview" style="background-color: ${item.value}" title="${item.value}"></span>`
@@ -20,21 +26,29 @@ export const addTypeAhead = (editor, options) => {
       }
     }
   })
+  //overwrite the offsetWidth
+  const ttList = window.document.querySelector(`.tt-list`)  as HTMLDivElement
+  ttList.style.width = '100%'
 }
 
-export const clearTypeahead = (editor, options) => {
-  const prefix = editor.Config.selectorManager.pStylePrefix
+export const clearTypeahead = (editor: Editor, _options: any) => {
+  const prefix = editor.Config.selectorManager?.stylePrefix
 	// Get selected Device
   const selected = editor.Devices.getSelected()
 
+  // @ts-ignore
   let devicePrefix = selected.id === "desktop" ? '' : `${selected.id}:`
 
   tailwindSuggestions(editor, editor.Canvas.getFrameEl(), devicePrefix)
 
-  const tagsField = window.document.getElementById(`${prefix}clm-tags-field`)
-  const inputField = tagsField.querySelector(`#${prefix}clm-new`)
+  const tagsField = window.document.getElementById(`${prefix}clm-tags-field`) as HTMLElement
+  if(tagsField == null) return
+
+  const inputField = tagsField.querySelector(`#${prefix}clm-new`) as HTMLInputElement
   // bugfix: move up to reset position before invoking typeahead (the + action is bound to the element)
   tagsField.appendChild(inputField)
+  // @ts-ignore
   tagsField.removeChild(tagsField.querySelector(".typeahead-standalone"))
+  // @ts-ignore
   window.tt.destroy()
 }
