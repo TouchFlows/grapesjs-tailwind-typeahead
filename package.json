@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "Grapesjs Tailwind Typeahead Plugin",
   "type": "module",
   "main": "dist/umd/index.js",
@@ -45,6 +45,6 @@
   "author": "Mark Tamis",
   "license": "MIT",
   "dependencies": {
-    "grapesjs-tailwind-typeahead": "grapesjs-tailwind-typeahead-1.2.8.tgz"
+    "grapesjs-tailwind-typeahead": "grapesjs-tailwind-typeahead-1.3.2.tgz"
   }
 }
