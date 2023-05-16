@@ -1,23 +1,11 @@
 import type { Editor } from 'grapesjs';
 
-export function addStyle(id = "typeahead", css = "") {
-	let styleTag = document.getElementById(id)
-	if (styleTag === null) {
-		styleTag = document.createElement("style")
-		styleTag.id = id
-		const head = document.getElementsByTagName("head")[0]
-		head.appendChild(styleTag)
-	}
-	styleTag.innerHTML = css
-}
-
-
-
 export function insertOnce(doc: Document, attr: string, tag: string, attributes: any) {
 	if (!doc.head.querySelector(`[${attr}]`)) {
 		insert(doc, attr, tag, attributes)
 	}
 }
+
 export function insert(doc: Document, attr: string, tag: string, attributes: any) {
 	const el = doc.head.querySelector(`[${attr}]`) || doc.createElement(tag)
   if(el.getAttribute(attr) == null) {
@@ -28,6 +16,17 @@ export function insert(doc: Document, attr: string, tag: string, attributes: any
   }
   return el
 }
+
+export function retrieveTailwindCss(doc: Document) {
+  let contents = ''
+  const styleDefs = doc.head.querySelectorAll('style')
+  Array.from(styleDefs).forEach(styleDef => {
+    contents = styleDef.innerHTML
+    if(contents.includes('https://tailwindcss.com')) return
+  })
+  return contents
+}
+
 export function removeAll(doc: Document, attr: string) {
 	doc.head.querySelector(`[${attr}]`) != null && Array.from(doc.head.querySelectorAll(`[${attr}]`)).forEach((el) => el.parentElement?.removeChild(el))
 }

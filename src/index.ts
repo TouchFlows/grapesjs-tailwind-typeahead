@@ -10,12 +10,13 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 		...{
 			i18n: {},
 			// default options
-			tailwindPlayCdn: "https://cdn.tailwindcss.com", // "https://cdn.buzzcasting.net/storage/tailwindcss/3.3.1.js"
+			tailwindPlayCdn: "https://cdn.tailwindcss.com",
 			plugins: [],
 			devices: devices,
 			suggestions: {
 				limit: 12
-			}
+			},
+			removeBodyFromHTML: false
 		},
 		...opts
 	}

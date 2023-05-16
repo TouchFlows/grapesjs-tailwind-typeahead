@@ -4,7 +4,7 @@ const devices = {
     {
       id: 'desktop',
       name: 'Desktop',
-      width: '',
+      width: '1920px',
     },
     {
       id: 'sm',
@@ -33,7 +33,7 @@ const devices = {
     },
     {
       id: '2xl',
-      name: '2xl (1536px',
+      name: '2xl (1536px)',
       width: '1536px',
       widthMedia: '1536px',
     },

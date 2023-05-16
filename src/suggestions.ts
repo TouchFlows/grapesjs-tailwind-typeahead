@@ -1,11 +1,27 @@
 import type { Editor } from "grapesjs"
 
+/**
+ * Force Tailwind regeneration
+ * @param editor
+ * @param frame
+ * @returns
+ */
+export const regenerateTailwind = (editor: Editor) => {
+	// @ts-ignore
+	const tailwind = editor.Canvas.getWindow().tailwind
+	// @ts-ignore
+	tailwind.config = editor.getModel().get("tailwind-config")
+	tailwind.resolveConfig(tailwind.config)
+}
+
 export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
 	// @ts-ignore
 	const tailwind = frame.contentWindow?.tailwind
 	// @ts-ignore
-  tailwind.config = editor.getModel().get("tailwind-config")
+	tailwind.config = editor.getModel().get("tailwind-config")
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
+
+	//const fullConfig =  regenerateTailwind(editor, frame)
 
 	let entries = [],
 		property: string | Node = "",
@@ -38,8 +54,8 @@ export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, de
 				return "basis"
 			case "fontFamily":
 				return "font"
-      case "fontSize":
-        return "text"
+			case "fontSize":
+				return "text"
 			case "gradientColorStart":
 				return "from"
 			case "gradientColorStops":
@@ -135,23 +151,41 @@ export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, de
 
 	const treeWalker = (node: Node, tag: string) => {
 		Array.from(Object.entries(node)).forEach(function callback(nodeOrName) {
-			if (typeof nodeOrName[1] == "object") {        
+			if (typeof nodeOrName[1] == "object") {
 				treeWalker(nodeOrName[1], `${tag}-${nodeOrName[0]}`)
 			} else {
-        if(nodeOrName[0] !== 'lineHeight') {
+				if (nodeOrName[0] !== "lineHeight") {
 					// @ts-ignore
-          const lastSelector: string = tag.split('-').pop()
-          let label = nodeOrName[0] === "DEFAULT" || 
-            ['xs','sm','base','lg','xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl'].includes(lastSelector) ||
-            [
-              'light', 'normal', 'regular', 'medium','bold','italic', 'sans', 'serif',
-              'lightitalic','regularitalic', 'mediumitalic','bolditalic',
-              'semilight','semiregular', 'semimedium','semibold',
-              'extralight','extraregular', 'extramedium','extrabold',
-            ].includes(lastSelector)
-            ? tag : `${tag}-${nodeOrName[0]}`
-          entries.push({ label: `${devicePrefix}${label}`, value: nodeOrName[1], property: property })
-        }
+					const lastSelector: string = tag.split("-").pop()
+					let label =
+						nodeOrName[0] === "DEFAULT" ||
+						["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl"].includes(lastSelector) ||
+						[
+							"light",
+							"normal",
+							"regular",
+							"medium",
+							"bold",
+							"italic",
+							"sans",
+							"serif",
+							"lightitalic",
+							"regularitalic",
+							"mediumitalic",
+							"bolditalic",
+							"semilight",
+							"semiregular",
+							"semimedium",
+							"semibold",
+							"extralight",
+							"extraregular",
+							"extramedium",
+							"extrabold"
+						].includes(lastSelector)
+							? tag
+							: `${tag}-${nodeOrName[0]}`
+					entries.push({ label: `${devicePrefix}${label}`, value: nodeOrName[1], property: property })
+				}
 			}
 		})
 	}
