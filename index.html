@@ -23,8 +23,8 @@
 
     <div id="gjs" style="height:0px; overflow:hidden">
       <div class="p-6 m-6">
-        This is a demo content from _index.html. You can use this template file for
-        development purpose. It won't be stored in your git repository
+        This is a demo content from index.html. You can use this template file for
+        development purpose. It will be stored in your git repository, true
       </div>
     </div>
 
@@ -127,7 +127,7 @@
           },
           plugins: ['grapesjsTailwindTypeahead'],
           pluginsOpts: {
-            grapesjsTailwindTypeahead: {}
+            grapesjsTailwindTypeahead: {removeBodyFromHTML: true}
           }
         });
       }, 100);

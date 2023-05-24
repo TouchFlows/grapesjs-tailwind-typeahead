@@ -82,7 +82,6 @@ export default (editor: Editor, options: any) => {
 
 			const errMessage = document.createElement("div")
 			errMessage.className = `${pfx}tailwind-error`
-			errMessage.setAttribute("style", "color:lightblue; font-size: .75rem;font-weight: lighter; padding: 5px; height:20px")
 			content.appendChild(errMessage)
 
 			// Tabs
@@ -232,17 +231,28 @@ export default (editor: Editor, options: any) => {
 
 		showCode() {
 			const selectedPage = editor.Pages.getSelected()
-			const main: any = selectedPage?.getMainComponent()
+			const main: any = selectedPage.getMainComponent()
 
 			if (options.removeBodyFromHTML) {
-				for (let i = 0; i < main.components.length; i++) {
+				for (let i = 0; i < main.attributes.components.length; i++) {
 					// Body may have multiple child nodes
-					html += `${editor.getHtml({ component: main.getChildAt(i), cleanId: true })}\n`
+					html += `${main.getChildAt(i).toHTML({
+						attributes(_component: any, attributes: { id: any }) {
+							delete attributes.id
+							return attributes
+						}
+					})}\n`
 				}
 			} else {
-				html = editor.getHtml({ component: main, cleanId: true })
+				html = main.toHTML({
+					attributes(_component: any, attributes: { id: any }) {
+						delete attributes.id
+						return attributes
+					}
+				})
 			}
-			css = retrieveTailwindCss(editor.Canvas.getDocument())
+			// @ts-ignore
+			css = retrieveTailwindCss(selectedPage.getMainFrame().view.getEl().contentDocument)
 
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.codeTitle")
 			const content = this.getTailwindContent()

@@ -20,10 +20,11 @@ export function insert(doc: Document, attr: string, tag: string, attributes: any
 export function retrieveTailwindCss(doc: Document) {
   let contents = ''
   const styleDefs = doc.head.querySelectorAll('style')
-  Array.from(styleDefs).forEach(styleDef => {
+  for( let styleDef of Array.from(styleDefs)) {
+    console.log(styleDef)
     contents = styleDef.innerHTML
-    if(contents.includes('https://tailwindcss.com')) return
-  })
+    if(contents.includes('tailwindcss')) break
+  }
   return contents
 }
 
