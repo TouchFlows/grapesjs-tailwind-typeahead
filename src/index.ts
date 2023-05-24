@@ -4,6 +4,7 @@ import loadCommands from "./commands"
 import loadTailwind from "./tailwind"
 import devices from "./devices"
 import en from "./locale/en"
+import { appendDirectives } from "./utils"
 
 const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 	const options = {
@@ -27,15 +28,14 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 			...options.i18n
 		})
 
-	if (!!options.config) {
+	if (!!options.theme) {
 		// @ts-ignore
-		editor.getModel().set("tailwind-config", options.config)
+		editor.getModel().set("theme", options.theme)
 	} else 
 	// @ts-ignore
-	if (editor.getModel().get("tailwind-config") === undefined) {
+	if (editor.getModel().get("theme") === undefined) {
 		// @ts-ignore
-		editor.getModel().set("tailwind-config", {
-			content: [],
+		editor.getModel().set("theme", {
 			theme: {
 				extend: {}
 			},
@@ -44,17 +44,18 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 	}
 	if (!!options.directives) {
 		// @ts-ignore
-		editor.getModel().set("tailwind-directives", options.directives)
+		editor.getModel().set("directives", options.directives)
 	} else 
 	// @ts-ignore
-	if (editor.getModel().get("tailwind-directives") === undefined) {
+	if (editor.getModel().get("directives") === undefined) {
 		// @ts-ignore
 		editor.getModel().set(
-			"tailwind-directives",
+			"directives",
 			'@tailwind base;\n@tailwind components;\n@tailwind utilities;'
 		)
 	}
 
+	appendDirectives(editor)
 	// Add TailwindCSS
 	loadTailwind(editor, options)
 	// Add commands

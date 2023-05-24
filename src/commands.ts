@@ -26,9 +26,9 @@ export default (editor: Editor, options: any) => {
 		showTailwindSettings() {
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.modalTitle")
 			// @ts-ignore
-			config = structuredClone(editor.getModel().get("tailwind-config"))
+			config = structuredClone(editor.getModel().get("theme"))
 			// @ts-ignore
-			directives = editor.getModel().get("tailwind-directives")
+			directives = editor.getModel().get("directives")
 
 			// @ts-ignore
 			const content = this.getContent()
@@ -169,12 +169,12 @@ export default (editor: Editor, options: any) => {
 
 			// Store the modified directives & config
 			// @ts-ignore
-			model.set("tailwind-directives", this.getDirectivesViewer().getContent())
+			model.set("directives", this.getDirectivesViewer().getContent())
 
 			appendDirectives(editor)
 
 			// @ts-ignore
-			model.set("tailwind-config", config)
+			model.set("theme", config)
 
 			clearTypeahead(editor, options)
 			addTypeAhead(editor, options)
@@ -360,15 +360,15 @@ export default (editor: Editor, options: any) => {
 	// add directives to the website
 	editor.on("storage:start:store", (data: any) => {
 		// @ts-ignore
-		data.directives = editor.getModel().get("tailwind-directives")
+		data.directives = editor.getModel().get("directives")
 		// @ts-ignore
-		data.config = editor.getModel().get("tailwind-config")
+		data.theme = editor.getModel().get("theme")
 	})
 
-	editor.on("storage:end:load", (_data: any) => {
+	editor.on("storage:end:load", (data: any) => {
 		// @ts-ignore
-		editor.getModel().set("tailwind-directives", directives)
+		editor.getModel().set("directives", data.directives)
 		// @ts-ignore
-		editor.getModel().set("tailwind-config", config)
+		editor.getModel().set("theme", data.theme)
 	})
 }

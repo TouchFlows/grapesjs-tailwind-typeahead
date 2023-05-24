@@ -10,7 +10,7 @@ export const regenerateTailwind = (editor: Editor) => {
 	// @ts-ignore
 	const tailwind = editor.Canvas.getWindow().tailwind
 	// @ts-ignore
-	tailwind.config = editor.getModel().get("tailwind-config")
+	tailwind.config = editor.getModel().get("theme")
 	tailwind.resolveConfig(tailwind.config)
 }
 
@@ -18,7 +18,7 @@ export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, de
 	// @ts-ignore
 	const tailwind = frame.contentWindow?.tailwind
 	// @ts-ignore
-	tailwind.config = editor.getModel().get("tailwind-config")
+	tailwind.config = editor.getModel().get("theme")
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
 
 	//const fullConfig =  regenerateTailwind(editor, frame)

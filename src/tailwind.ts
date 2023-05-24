@@ -1,6 +1,6 @@
 import type { Editor } from "grapesjs"
 import { tailwindSuggestions } from "./suggestions"
-import { appendDirectives, insert } from "./utils"
+import { insert } from "./utils"
 import { clearTypeahead, addTypeAhead } from "./typeahead"
 
 export default (editor: Editor, options: any = {}) => {
@@ -27,7 +27,7 @@ export default (editor: Editor, options: any = {}) => {
 			editor.getContainer().querySelector(`.${prefix}clm-sels-info`).style.display = "none"
 		}
 		// add the tailwind directives to a style element
-		appendDirectives(editor)
+		// appendDirectives(editor)
 
 		const tw = insert(iframe.contentDocument, 'tailwindcss', 'script', {src: tailwindPlayCdn + (plugins.length ? `?plugins=${plugins.join()}` : "")})
 		// @ts-ignore

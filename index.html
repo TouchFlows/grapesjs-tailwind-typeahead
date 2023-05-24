@@ -72,7 +72,11 @@
           showOffsets: true,
           fromElement: true,
           noticeOnUnload: false,
-          storageManager: false,
+          storageManager: {
+            type: 'local',
+            autosave: true,
+            autoload: true,
+          },
           deviceManager: {
             default: '',
             devices: [
@@ -123,7 +127,7 @@
           },
           plugins: ['grapesjsTailwindTypeahead'],
           pluginsOpts: {
-            grapesjsTailwindTypeahead: { config: config, directives: directives }
+            grapesjsTailwindTypeahead: {}
           }
         });
       }, 100);
