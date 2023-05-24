@@ -37,10 +37,10 @@ export const appendDirectives = (editor: Editor) => {
     page.getAllFrames().forEach((frame) => {
       const doc = frame.view?.getEl().contentDocument
       //removeAll(doc, 'directives')
-			if(doc == null ) return
-			// @ts-ignore
+      if(doc == null ) return
+      // @ts-ignore
       const el = insert(doc, 'directives', 'style', {type: 'text/tailwindcss'})
-			// @ts-ignore
+      // @ts-ignore
       el.innerHTML = editor.getModel().get("directives")
     })
   })

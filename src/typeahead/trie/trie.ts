@@ -47,6 +47,7 @@ export const Trie: TrieType<any> = (config = {}) => {
             node = (node[token] || (node[token] = {})) as Record<string, unknown>;
           }
 
+          // @ts-ignore
           const uniqueId = typeof value === 'string' ? value : (identity && identity(value)) || JSON.stringify(value);
 
           if (!node[SENTINEL]) {

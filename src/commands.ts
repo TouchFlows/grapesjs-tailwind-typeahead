@@ -1,16 +1,49 @@
 import type { Editor } from "grapesjs"
 import { clearTypeahead, addTypeAhead } from "./typeahead"
-import { appendDirectives, retrieveTailwindCss } from "./utils"
-//import { regenerateTailwind } from "./suggestions"
+import { retrieveTailwindCss, appendDirectives } from "./utils"
+import { regenerateTailwind } from "./suggestions"
 
 export default (editor: Editor, options: any) => {
-	const cmdOpenTailwind = 'open-tailwind'
-	const cmdOpenCode = 'open-code'
-	const cmdExportTemplate = 'export-template'
+	const cmdOpenTailwind = "open-tailwind"
+	const cmdOpenCode = "open-code"
+	const cmdExportTemplate = "export-template"
+	const cmdClearTypeahead = "clear-typeahead"
+	const cmdAddTypeahead = "add-typeahead"
+	const cmdRegerateTailwind = "regenerate-tailwind"
+	const cmdAddDirectives = "add-directives"
 
-	let config: string, directives: string, html: string = '', css: string = ''
+	let config: string,
+		directives: string,
+		html: string = "",
+		css: string = ""
 
-	editor.Commands.add(cmdOpenTailwind, {
+	const cmd = editor.Commands
+
+	cmd.add(cmdAddDirectives, {
+		run(editor) {
+			appendDirectives(editor)
+		}
+	})
+
+	cmd.add(cmdClearTypeahead, {
+		run(editor) {
+			clearTypeahead(editor)
+		}
+	})
+
+	cmd.add(cmdAddTypeahead, {
+		run(editor) {
+			addTypeAhead(editor, options)
+		}
+	})
+
+	cmd.add(cmdRegerateTailwind, {
+		run(editor) {
+			regenerateTailwind(editor)
+		}
+	})
+
+	cmd.add(cmdOpenTailwind, {
 		/* eslint-disable-next-line */
 		run(_editor, _s, _options) {
 			this.showTailwindSettings()
@@ -61,13 +94,13 @@ export default (editor: Editor, options: any) => {
 			content.appendChild(tabbar)
 
 			const configTab = document.createElement("div")
-			configTab.classList.add('tabcontent','active')
+			configTab.classList.add("tabcontent", "active")
 			configTab.id = "configuration"
 			configTab.appendChild(configViewer.getElement())
 			content.appendChild(configTab)
 
 			const directivesTab = document.createElement("div")
-			directivesTab.classList.add('tabcontent')
+			directivesTab.classList.add("tabcontent")
 			directivesTab.id = "directives"
 			directivesTab.appendChild(directivesViewer.getElement())
 			content.appendChild(directivesTab)
@@ -85,10 +118,10 @@ export default (editor: Editor, options: any) => {
 
 		getTabLink(tabName: string, viewer: any, active: boolean) {
 			const btn = document.createElement("button")
-			btn.classList.add('tablinks')
+			btn.classList.add("tablinks")
 			btn.innerHTML = tabName
-			if(active) btn.classList.add('active')
-			btn.addEventListener('click', ev => this.openTab(ev, tabName.toLowerCase(), viewer))
+			if (active) btn.classList.add("active")
+			btn.addEventListener("click", (ev) => this.openTab(ev, tabName.toLowerCase(), viewer))
 			return btn
 		},
 
@@ -97,16 +130,16 @@ export default (editor: Editor, options: any) => {
 
 			// Get all elements with class="tabcontent" and hide them
 			tabcontent = Array.from(document.getElementsByClassName("tabcontent"))
-			tabcontent.forEach(content => content.classList.remove('active'))
-			document.getElementById(tabName)?.classList.add('active')
+			tabcontent.forEach((content) => content.classList.remove("active"))
+			document.getElementById(tabName)?.classList.add("active")
 
 			// Get all elements with class="tablinks" and remove the class "active"
 			tablinks = Array.from(document.getElementsByClassName("tablinks"))
-			tablinks.forEach(link => link.classList.remove('active'))
+			tablinks.forEach((link) => link.classList.remove("active"))
 
 			// Show the current tab, and add an "active" class to the button that opened the tab
 			// @ts-ignore
-			ev.currentTarget?.classList.add('active')
+			ev.currentTarget?.classList.add("active")
 
 			viewer.refresh()
 		},
@@ -161,7 +194,7 @@ export default (editor: Editor, options: any) => {
 			} catch (ex) {
 				const pfx = editor.getConfig("stylePrefix")
 				// @ts-ignore
-				document.querySelector(`.${pfx}tailwind-error`).innerHTML = "There is an error in your settings, please check"
+				document.querySelector(`.${pfx}tailwind-error`).innerHTML = editor.I18n.t("grapesjs-tailwind-typeahead.errorSettings")
 				return
 			}
 
@@ -170,27 +203,24 @@ export default (editor: Editor, options: any) => {
 			// Store the modified directives & config
 			// @ts-ignore
 			model.set("directives", this.getDirectivesViewer().getContent())
-
-			appendDirectives(editor)
-
 			// @ts-ignore
 			model.set("theme", config)
 
-			clearTypeahead(editor, options)
-			addTypeAhead(editor, options)
+			editor.runCommand("append-directives")
+			editor.runCommand("clear-typeahead")
+			editor.runCommand("add-typeahead", options)
 
 			// Save website if auto save is on
 			// @ts-ignore
 			model.set("changesCount", editor.getDirtyCount() + 1)
 			editor.Modal.close()
-		},
-
+		}
 	})
 
 	/**
 	 * Show code viewer for HTML and Tailwind CSS classes
 	 */
-	editor.Commands.add(cmdOpenCode, {
+	cmd.add(cmdOpenCode, {
 		/* eslint-disable-next-line */
 		run(_editor, _s, _options) {
 			this.showCode()
@@ -201,19 +231,18 @@ export default (editor: Editor, options: any) => {
 		},
 
 		showCode() {
-			const selectedPage = editor.Pages.getSelected();
+			const selectedPage = editor.Pages.getSelected()
 			const main: any = selectedPage?.getMainComponent()
 
-			if(options.removeBodyFromHTML) {
-				for(let i = 0; i < main.components.length; i++ ) {
+			if (options.removeBodyFromHTML) {
+				for (let i = 0; i < main.components.length; i++) {
 					// Body may have multiple child nodes
-					html += `${editor.getHtml({component: main.getChildAt(i), cleanId: true})}\n`
+					html += `${editor.getHtml({ component: main.getChildAt(i), cleanId: true })}\n`
 				}
 			} else {
-				html = editor.getHtml({component: main, cleanId: true})
+				html = editor.getHtml({ component: main, cleanId: true })
 			}
 			css = retrieveTailwindCss(editor.Canvas.getDocument())
-			
 
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.codeTitle")
 			const content = this.getTailwindContent()
@@ -233,8 +262,7 @@ export default (editor: Editor, options: any) => {
 			content.className = `${pfx}code-viewer`
 
 			const errMessage = document.createElement("div")
-			errMessage.className = `${pfx}code-error`
-			errMessage.setAttribute("style", "color:lightblue; font-size: .75rem;font-weight: lighter; padding: 5px; height:20px")
+			errMessage.className = `${pfx}tailwind-error`
 			content.appendChild(errMessage)
 
 			// Tabs
@@ -246,13 +274,13 @@ export default (editor: Editor, options: any) => {
 			content.appendChild(tabbar)
 
 			const htmlTab = document.createElement("div")
-			htmlTab.classList.add('tabcontent','active')
+			htmlTab.classList.add("tabcontent", "active")
 			htmlTab.id = "html"
 			htmlTab.appendChild(htmlViewer.getElement())
 			content.appendChild(htmlTab)
 
 			const cssTab = document.createElement("div")
-			cssTab.classList.add('tabcontent')
+			cssTab.classList.add("tabcontent")
 			cssTab.id = "css"
 			cssTab.appendChild(cssViewer.getElement())
 			content.appendChild(cssTab)
@@ -267,10 +295,10 @@ export default (editor: Editor, options: any) => {
 
 		getTabLink(tabName: string, viewer: any, active: boolean) {
 			const btn = document.createElement("button")
-			btn.classList.add('tablinks')
+			btn.classList.add("tablinks")
 			btn.innerHTML = tabName
-			if(active) btn.classList.add('active')
-			btn.addEventListener('click', ev => this.openTab(ev, tabName.toLowerCase(), viewer))
+			if (active) btn.classList.add("active")
+			btn.addEventListener("click", (ev) => this.openTab(ev, tabName.toLowerCase(), viewer))
 			return btn
 		},
 
@@ -279,16 +307,16 @@ export default (editor: Editor, options: any) => {
 
 			// Get all elements with class="tabcontent" and hide them
 			tabcontent = Array.from(document.getElementsByClassName("tabcontent"))
-			tabcontent.forEach(content => content.classList.remove('active'))
-			document.getElementById(tabName)?.classList.add('active')
+			tabcontent.forEach((content) => content.classList.remove("active"))
+			document.getElementById(tabName)?.classList.add("active")
 
 			// Get all elements with class="tablinks" and remove the class "active"
 			tablinks = Array.from(document.getElementsByClassName("tablinks"))
-			tablinks.forEach(link => link.classList.remove('active'))
+			tablinks.forEach((link) => link.classList.remove("active"))
 
 			// Show the current tab, and add an "active" class to the button that opened the tab
 			// @ts-ignore
-			ev.currentTarget?.classList.add('active')
+			ev.currentTarget?.classList.add("active")
 
 			viewer.refresh()
 		},
@@ -323,25 +351,24 @@ export default (editor: Editor, options: any) => {
 			}
 			// @ts-ignore
 			return this.cssViewer
-		},
-
+		}
 	})
 
 	const pn = editor.Panels
-	pn.removeButton('options', cmdExportTemplate)
+	pn.removeButton("options", cmdExportTemplate)
 
 	pn.addButton("options", {
 		id: cmdOpenCode,
-		className: 'fa fa-code',
+		className: "fa fa-code",
 		attributes: {
 			title: editor.I18n.t("grapesjs-tailwind-typeahead.codeTitle")
 		},
 		command: cmdOpenCode
 	})
 
-	pn.addButton('options', {
+	pn.addButton("options", {
 		id: cmdOpenTailwind,
-		className: 'tw-logo',
+		className: "tw-logo",
 		attributes: {
 			title: editor.I18n.t("grapesjs-tailwind-typeahead.modalTitle")
 		},
@@ -351,11 +378,11 @@ export default (editor: Editor, options: any) => {
 	/**
 	 * regenrate tailwind css classes when a selector is removed
 	 */
-	editor.on('selector:remove', (/*selector*/) => { 
+	editor.on("selector:remove", (/*selector*/) => {
 		// TODO: not suffisient to regenerate
 		//regenerateTailwind(editor)
 		//change something in theme or directives?
-	 });
+	})
 
 	// add directives to the website
 	editor.on("storage:start:store", (data: any) => {

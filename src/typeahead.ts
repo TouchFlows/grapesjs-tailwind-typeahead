@@ -1,9 +1,9 @@
 import typeahead from "./typeahead/typeahead"
-import type { Editor } from 'grapesjs';
+import type { Editor, PluginOptions } from 'grapesjs';
 import { tailwindSuggestions } from "./suggestions"
 
-export const addTypeAhead = (editor: Editor, options: any) => {
-  const prefix = editor.Config.selectorManager?.stylePrefix || 'gjs-'
+export const addTypeAhead = (editor: Editor, options: Required<PluginOptions> = {}) => {
+  const prefix = editor.getConfig('stylePrefix') || 'gjs-'
 
   const input = window.document.querySelector(`#${prefix}clm-new`)  as HTMLInputElement
   // @ts-ignore
@@ -31,8 +31,8 @@ export const addTypeAhead = (editor: Editor, options: any) => {
   ttList.style.width = '100%'
 }
 
-export const clearTypeahead = (editor: Editor, _options: any) => {
-  const prefix = editor.Config.selectorManager?.stylePrefix
+export const clearTypeahead = (editor: Editor, _options: any = {}) => {
+  const prefix = editor.getConfig('stylePrefix')
 	// Get selected Device
   const selected = editor.Devices.getSelected()
 
@@ -42,6 +42,7 @@ export const clearTypeahead = (editor: Editor, _options: any) => {
   tailwindSuggestions(editor, editor.Canvas.getFrameEl(), devicePrefix)
 
   const tagsField = window.document.getElementById(`${prefix}clm-tags-field`) as HTMLElement
+  
   if(tagsField == null) return
 
   const inputField = tagsField.querySelector(`#${prefix}clm-new`) as HTMLInputElement

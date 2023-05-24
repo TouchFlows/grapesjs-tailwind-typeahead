@@ -1,11 +1,10 @@
 import type { Editor } from "grapesjs"
 import { tailwindSuggestions } from "./suggestions"
 import { insert } from "./utils"
-import { clearTypeahead, addTypeAhead } from "./typeahead"
 
 export default (editor: Editor, options: any = {}) => {
 	// Editor style prefix (still needed?)
-	const prefix = editor.Config.selectorManager?.stylePrefix || 'gjs-'
+	const prefix = editor.getConfig('stylePrefix')
 
 	const appendTailwindCss = async (frame: HTMLIFrameElement) => {
 		// @ts-ignore
@@ -18,13 +17,17 @@ export default (editor: Editor, options: any = {}) => {
 		const init = () => {
 			tailwindSuggestions(editor, iframe, '')
 
-			addTypeAhead(editor, options)
+			editor.runCommand('add-typeahead')
+
+			editor.runCommand('add-directives')
 
 			// Do not show the selector
+			const container = editor.getContainer() as HTMLDivElement
+
 			// @ts-ignore
-			editor.getContainer().querySelector(`.${prefix}clm-header-status`).style.display = "none"
+			container.querySelector(`.${prefix}clm-header-status`).style.display = "none"
 			// @ts-ignore
-			editor.getContainer().querySelector(`.${prefix}clm-sels-info`).style.display = "none"
+			container.querySelector(`.${prefix}clm-sels-info`).style.display = "none"
 		}
 		// add the tailwind directives to a style element
 		// appendDirectives(editor)
@@ -45,7 +48,7 @@ export default (editor: Editor, options: any = {}) => {
 	})
 
 	editor.on("device:select", () => {
-		clearTypeahead(editor, options)
-		addTypeAhead(editor, options)
+		editor.runCommand('clear-typeahead')
+		editor.runCommand('add-typeahead')
 	})
 }

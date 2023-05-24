@@ -4,7 +4,6 @@ import loadCommands from "./commands"
 import loadTailwind from "./tailwind"
 import devices from "./devices"
 import en from "./locale/en"
-import { appendDirectives } from "./utils"
 
 const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 	const options = {
@@ -54,8 +53,6 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 			'@tailwind base;\n@tailwind components;\n@tailwind utilities;'
 		)
 	}
-
-	appendDirectives(editor)
 	// Add TailwindCSS
 	loadTailwind(editor, options)
 	// Add commands
