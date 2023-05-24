@@ -232,7 +232,7 @@ export default (editor: Editor, options: any) => {
 		showCode() {
 			const selectedPage = editor.Pages.getSelected()
 			const main: any = selectedPage.getMainComponent()
-
+			html = ''
 			if (options.removeBodyFromHTML) {
 				for (let i = 0; i < main.attributes.components.length; i++) {
 					// Body may have multiple child nodes
@@ -252,6 +252,7 @@ export default (editor: Editor, options: any) => {
 				})
 			}
 			// @ts-ignore
+			css = ''
 			css = retrieveTailwindCss(selectedPage.getMainFrame().view.getEl().contentDocument)
 
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.codeTitle")
