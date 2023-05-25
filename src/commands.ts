@@ -1,6 +1,6 @@
 import type { Editor } from "grapesjs"
 import { clearTypeahead, addTypeAhead } from "./typeahead"
-import { retrieveTailwindCss, appendDirectives } from "./utils"
+import { retrieveTailwindCss, appendDirectives, getComponentAttributes } from "./utils"
 import { regenerateTailwind } from "./suggestions"
 
 export default (editor: Editor, options: any) => {
@@ -234,23 +234,22 @@ export default (editor: Editor, options: any) => {
 				const components = editor.getComponents()
 				// @ts-ignore
 				Array.from(components.models).forEach((component) => {
-					// remove all id
 					// @ts-ignore
 					html += `${component.toHTML({
-						attributes(_component: any, attributes: { id: string }) {
-							options.removeId && delete attributes.id
-							return attributes
-						}
+						attributes(_component: any, attributes: any) {
+							return getComponentAttributes(editor, options, attributes)
+					}
 					})}`
 				})
 			} else {
-				html = editor.getWrapper().toHTML({
-					attributes(_component: any, attributes: { id: string }) {
-						options.removeId && delete attributes.id
-						return attributes
-					}
-				})
+				const wrapper = editor.getWrapper()
+				html = `${wrapper.toHTML({
+					attributes(_component: any, attributes: any) {
+						return getComponentAttributes(editor, options, attributes)
+				}
+				})}`
 			}
+
 			css = retrieveTailwindCss(editor.Pages.getSelected().getMainFrame().view.getEl().contentDocument)
 
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.codeTitle")

@@ -21,7 +21,6 @@ export function retrieveTailwindCss(doc: Document) {
   let contents = ''
   const styleDefs = doc.head.querySelectorAll('style')
   for( let styleDef of Array.from(styleDefs)) {
-    console.log(styleDef)
     contents = styleDef.innerHTML
     if(contents.includes('tailwindcss')) break
   }
@@ -45,6 +44,23 @@ export const appendDirectives = (editor: Editor) => {
       el.innerHTML = editor.getModel().get("directives")
     })
   })
+}
+
+export function getComponentAttributes(editor: Editor, options: any, attributes: any) {
+	const cssRules = editor.Css
+	let style: string = ""
+	// @ts-ignore
+	const rules = cssRules.getIdRule(attributes.id)?.attributes?.style
+	if (rules) {
+			style = ''
+			// add style to the attributes, specifically to keep background images in the html output
+			Object.keys(rules).forEach(key => {
+					style += `${key}:${rules[key]};`
+			})
+      if(style.length) attributes.style = style
+	}
+	options.removeId && delete attributes.id
+	return attributes
 }
 
 
