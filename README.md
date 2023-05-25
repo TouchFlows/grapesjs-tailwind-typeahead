@@ -144,7 +144,8 @@ body, html {
 |-|-|-
 | `config` | Tailwind CSS configuration | {} |
 | `directives` | Tailwind CSS directives | `@tailwind base; @tailwind components; @tailwind utilities;` |
-
+| `removeWrapper` | Remove the wrapper (usually body) from html output | true |
+| `removeId` | Remove element id from html output | true | 
 
 
 ## Download

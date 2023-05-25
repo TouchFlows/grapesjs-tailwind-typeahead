@@ -12,10 +12,7 @@ export default (editor: Editor, options: any) => {
 	const cmdRegerateTailwind = "regenerate-tailwind"
 	const cmdAddDirectives = "add-directives"
 
-	let config: string,
-		directives: string,
-		html: string = "",
-		css: string = ""
+	let config: string, directives: string
 
 	const cmd = editor.Commands
 
@@ -205,7 +202,7 @@ export default (editor: Editor, options: any) => {
 			// @ts-ignore
 			model.set("theme", config)
 
-			editor.runCommand("append-directives")
+			editor.runCommand("add-directives")
 			editor.runCommand("clear-typeahead")
 			editor.runCommand("add-typeahead", options)
 
@@ -230,30 +227,31 @@ export default (editor: Editor, options: any) => {
 		},
 
 		showCode() {
-			const selectedPage = editor.Pages.getSelected()
-			const main: any = selectedPage.getMainComponent()
-			html = ''
-			if (options.removeBodyFromHTML) {
-				for (let i = 0; i < main.attributes.components.length; i++) {
-					// Body may have multiple child nodes
-					html += `${main.getChildAt(i).toHTML({
-						attributes(_component: any, attributes: { id: any }) {
-							delete attributes.id
+			let html: string = "",
+				css: string = ""
+
+			if (options.removeWrapper) {
+				const components = editor.getComponents()
+				// @ts-ignore
+				Array.from(components.models).forEach((component) => {
+					// remove all id
+					// @ts-ignore
+					html += `${component.toHTML({
+						attributes(_component: any, attributes: { id: string }) {
+							options.removeId && delete attributes.id
 							return attributes
 						}
-					})}\n`
-				}
+					})}`
+				})
 			} else {
-				html = main.toHTML({
-					attributes(_component: any, attributes: { id: any }) {
-						delete attributes.id
+				html = editor.getWrapper().toHTML({
+					attributes(_component: any, attributes: { id: string }) {
+						options.removeId && delete attributes.id
 						return attributes
 					}
 				})
 			}
-			// @ts-ignore
-			css = ''
-			css = retrieveTailwindCss(selectedPage.getMainFrame().view.getEl().contentDocument)
+			css = retrieveTailwindCss(editor.Pages.getSelected().getMainFrame().view.getEl().contentDocument)
 
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.codeTitle")
 			const content = this.getTailwindContent()

@@ -16,7 +16,8 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 			suggestions: {
 				limit: 12
 			},
-			removeBodyFromHTML: false
+			removeWrapper: true,
+			removeId: true
 		},
 		...opts
 	}
