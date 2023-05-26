@@ -1,20 +1,21 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.4.0",
+  "version": "1.4.8",
   "description": "Grapesjs Tailwind Typeahead Plugin",
   "type": "module",
-  "main": "dist/umd/index.js",
-  "module": "dist/es/index.js",
-  "unpkg": "./dist/umd/index.js",
+  "main": "dist/grapesjs-tailwind-typeahead.umd.js",
+  "module": "dist/grapesjs-tailwind-typeahead.es.js",
+  "unpkg": "./dist/grapesjs-tailwind-typeahead.umd.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/es/index.js",
-      "require": "./dist/umd/index.js"
-    }
+      "import": "./dist/grapesjs-tailwind-typeahead.js",
+      "require": "./dist/grapesjs-tailwind-typeahead.umd.js"
+    },
+    "./dist/grapesjs-tailwind-typeahead.min.css": "./dist/grapesjs-tailwind-typeahead.min.css"
   },
   "repository": {
     "type": "git",
@@ -35,11 +36,13 @@
     "plugin"
   ],
   "devDependencies": {
-    "@types/node": "^20.2.3",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@types/node": "^20.2.4",
     "grapesjs": "^0.21.1",
     "rollup-plugin-typescript-paths": "^1.4.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.8",
+    "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0"
   },
   "author": "Mark Tamis",

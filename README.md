@@ -17,7 +17,7 @@ Find a live demo here [GrapesJS Tailwind CSS Typeahead Demo](https://demo.touchf
 ### HTML
 ```html
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-<link href="https://unpkg.com/grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.css" rel="stylesheet">
+<link href="https://unpkg.com/grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.min.css" rel="stylesheet">
 <script type="module" src="https://unpkg.com/grapesjs"></script>
 <script type="module" src="https://unpkg.com/grapesjs-tailwind-typeahead"></script>
 
@@ -186,6 +186,8 @@ Modern javascript
 import grapesjs from 'grapesjs';
 import plugin from 'grapesjs-tailwind-typeahead';
 import 'grapesjs/dist/css/grapes.min.css';
+import 'grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.min.css';
+
 
 const editor = grapesjs.init({
   container : '#gjs',

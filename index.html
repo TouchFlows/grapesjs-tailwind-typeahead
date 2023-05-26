@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/grapesjs"></script>
     <script type="module">
       import * as tailwind from './src/index.ts'
-      window.grapesjsTailwindTypeahead = tailwind
+      window['grapesjs-tailwind-typeahead'] = tailwind
     </script>
 
     <style>
@@ -125,9 +125,9 @@
             escapeName,
             componentFirst: true,
           },
-          plugins: ['grapesjsTailwindTypeahead'],
+          plugins: ['grapesjs-tailwind-typeahead'],
           pluginsOpts: {
-            grapesjsTailwindTypeahead: {removeId: true, removeWrapper: true}
+            'grapesjs-tailwind-typeahead': {removeId: true, removeWrapper: true}
           }
         });
       }, 100);

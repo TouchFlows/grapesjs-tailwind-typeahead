@@ -38,8 +38,8 @@ export const Trie: TrieType<any> = (config = {}) => {
       // we tokenize the incoming data to make search possible by fragments
       const dataTokens = tokenize(typeof value === 'string' ? value : (value[identifier] as string));
       dataTokens
-        .filter((item: any) => item) // filter out falsy values
-        .forEach((prefix: string) => {
+        .filter((item) => item) // filter out falsy values
+        .forEach((prefix) => {
           node = root;
 
           for (let i = 0, l = prefix.length; i < l; i++) {
@@ -108,7 +108,7 @@ export const Trie: TrieType<any> = (config = {}) => {
     // Search for multiple tokens/queries
     const objArrs: Dictionary[] = [];
     let suggestions: Dictionary | Dictionary[] = {};
-    queryTokens.forEach((token: string) => {
+    queryTokens.forEach((token) => {
       // note that limit is not passed to "find()"
       objArrs.push(find(token) as Dictionary);
     });

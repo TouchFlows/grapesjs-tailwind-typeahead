@@ -46,9 +46,4 @@ export default (editor: Editor, options: any = {}) => {
 			})
 		)
 	})
-
-	editor.on("device:select", () => {
-		editor.runCommand('clear-typeahead')
-		editor.runCommand('add-typeahead')
-	})
 }

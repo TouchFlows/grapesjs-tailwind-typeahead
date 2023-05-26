@@ -1,9 +1,10 @@
 import type { Editor, Plugin } from "grapesjs"
 import './grapesjs-tailwind-typeahead.css'
-import loadCommands from "./commands"
-import loadTailwind from "./tailwind"
+import commands from "./commands"
+import tailwind from "./tailwind"
 import devices from "./devices"
 import en from "./locale/en"
+import events from "./events"
 
 const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 	const options = {
@@ -38,8 +39,7 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 		editor.getModel().set("theme", {
 			theme: {
 				extend: {}
-			},
-			plugins: []
+			}
 		})
 	}
 	if (!!options.directives) {
@@ -55,9 +55,11 @@ const plugin: Plugin = (editor: Editor, opts: any = {}) => {
 		)
 	}
 	// Add TailwindCSS
-	loadTailwind(editor, options)
+	commands(editor, options)
 	// Add commands
-	loadCommands(editor, options)
+	tailwind(editor, options)
+
+	events(editor, options)
 }
 
 export default plugin
