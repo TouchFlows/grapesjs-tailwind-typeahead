@@ -14,7 +14,7 @@ export const regenerateTailwind = (editor: Editor) => {
 	tailwind.resolveConfig(tailwind.config)
 }
 
-export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
+export const tailwindSuggestions = (_editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
 	// @ts-ignore
 	const tailwind = frame.contentWindow?.tailwind
 	// @ts-ignore
