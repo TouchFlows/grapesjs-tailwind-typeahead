@@ -1,19 +1,19 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "Grapesjs Tailwind Typeahead Plugin",
   "type": "module",
-  "main": "dist/grapesjs-tailwind-typeahead.umd.js",
-  "module": "dist/grapesjs-tailwind-typeahead.es.js",
-  "unpkg": "./dist/grapesjs-tailwind-typeahead.umd.js",
+  "main": "dist/grapesjs-tailwind-typeahead.cjs",
+  "module": "dist/grapesjs-tailwind-typeahead.mjs",
+  "unpkg": "./dist/grapesjs-tailwind-typeahead.mjs",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/grapesjs-tailwind-typeahead.js",
-      "require": "./dist/grapesjs-tailwind-typeahead.umd.js"
+      "import": "./dist/grapesjs-tailwind-typeahead.mjs",
+      "require": "./dist/grapesjs-tailwind-typeahead.cjs"
     },
     "./dist/grapesjs-tailwind-typeahead.min.css": "./dist/grapesjs-tailwind-typeahead.min.css"
   },
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/touchflows/grapesjs-tailwind-typeahead#readme",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "bump": "npm version patch -m 'Release v%s'"
   },
@@ -36,15 +36,17 @@
     "plugin"
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
-    "@types/node": "^20.2.4",
+    "@types/node": "^20.2.5",
     "grapesjs": "^0.21.1",
     "rollup-plugin-typescript-paths": "^1.4.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.0.4",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0"
   },
   "author": "Mark Tamis",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "typeahead-standalone": "^4.21.0"
+  }
 }
