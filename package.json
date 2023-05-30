@@ -5,15 +5,17 @@
   "main": "dist/grapesjs-tailwind-typeahead.umd.js",
   "module": "dist/grapesjs-tailwind-typeahead.mjs",
   "unpkg": "./dist/grapesjs-tailwind-typeahead.umd.js",
+
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/es/index.js",
-      "require": "./dist/umd/index.js"
-    }
+      "import": "./dist/grapesjs-tailwind-typeahead.mjs",
+      "require": "./dist/grapesjs-tailwind-typeahead.cjs"
+    },
+    "./dist/grapesjs-tailwind-typeahead.min.css": "./dist/grapesjs-tailwind-typeahead.min.css"
   },
   "repository": {
     "type": "git",
@@ -44,5 +46,8 @@
     "vite-plugin-dts": "^2.3.0"
   },
   "author": "Mark Tamis",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "typeahead-standalone": "^4.21.0"
+  }
 }

@@ -186,6 +186,8 @@ Modern javascript
 import grapesjs from 'grapesjs';
 import plugin from 'grapesjs-tailwind-typeahead';
 import 'grapesjs/dist/css/grapes.min.css';
+import 'grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.min.css';
+
 
 const editor = grapesjs.init({
   container : '#gjs',
