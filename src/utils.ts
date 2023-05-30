@@ -41,7 +41,7 @@ export const appendDirectives = (editor: Editor) => {
       // @ts-ignore
       const el = insert(doc, 'directives', 'style', {type: 'text/tailwindcss'})
       // @ts-ignore
-      el.innerHTML = editor.getModel().get("directives")
+      el.innerHTML = editor.getModel().get("directives") || '@tailwind base;\n@tailwind components;\n@tailwind utilities;'
     })
   })
 }

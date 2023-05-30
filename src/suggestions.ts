@@ -15,10 +15,11 @@ export const regenerateTailwind = (editor: Editor) => {
 }
 
 export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
+
 	// @ts-ignore
 	const tailwind = frame.contentWindow?.tailwind
 	// @ts-ignore
-	tailwind.config = editor.getModel().get("theme")
+	tailwind.config = editor.getModel().get("theme") || {"theme": {}}
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
 
 	//const fullConfig =  regenerateTailwind(editor, frame)

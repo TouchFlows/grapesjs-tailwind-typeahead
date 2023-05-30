@@ -15,11 +15,15 @@ export default (editor: Editor, options: any = {}) => {
 		const { tailwindPlayCdn, plugins } = options
 
 		const init = () => {
-			tailwindSuggestions(editor, iframe, '')
+			console.log('directives')
+			editor.runCommand('add-directives')
 
+			tailwindSuggestions(editor, iframe, '')
+			
+			console.log('ta')
 			editor.runCommand('add-typeahead')
 
-			editor.runCommand('add-directives')
+			
 
 			// Do not show the selector
 			const container = editor.getContainer() as HTMLDivElement
