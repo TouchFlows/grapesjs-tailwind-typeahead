@@ -1,11 +1,10 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Grapesjs Tailwind Typeahead Plugin",
-  "type": "module",
-  "main": "dist/umd/index.js",
-  "module": "dist/es/index.js",
-  "unpkg": "./dist/umd/index.js",
+  "main": "dist/grapesjs-tailwind-typeahead.umd.js",
+  "module": "dist/grapesjs-tailwind-typeahead.mjs",
+  "unpkg": "./dist/grapesjs-tailwind-typeahead.umd.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -26,7 +25,8 @@
   "homepage": "https://github.com/touchflows/grapesjs-tailwind-typeahead#readme",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:debug": "vite build --debug",
     "preview": "vite preview",
     "bump": "npm version patch -m 'Release v%s'"
   },
@@ -35,11 +35,12 @@
     "plugin"
   ],
   "devDependencies": {
-    "@types/node": "^20.2.3",
+    "@types/node": "^20.2.5",
     "grapesjs": "^0.21.1",
     "rollup-plugin-typescript-paths": "^1.4.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.0.4",
-    "vite": "^4.3.8",
+    "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0"
   },
   "author": "Mark Tamis",

@@ -15,11 +15,10 @@ export const regenerateTailwind = (editor: Editor) => {
 }
 
 export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
-
 	// @ts-ignore
 	const tailwind = frame.contentWindow?.tailwind
 	// @ts-ignore
-	tailwind.config = editor.getModel().get("theme") || {"theme": {}}
+	tailwind.config = window._twcss.theme || {"theme": {}}
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
 
 	//const fullConfig =  regenerateTailwind(editor, frame)
@@ -215,5 +214,6 @@ export const tailwindSuggestions = (editor: Editor, frame: HTMLIFrameElement, de
 	entries.push({ label: `${devicePrefix}flex`, value: "display:flex", property: "flex" })
 	entries.push({ label: `${devicePrefix}uppercase`, value: "uppercase", property: "text" })
 	entries.push({ label: `${devicePrefix}lowercase`, property: "text" })
-	tailwind.suggestions = entries
+	// @ts-ignore
+	window._twcss.suggestions = entries
 }

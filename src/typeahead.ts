@@ -5,14 +5,16 @@ import { tailwindSuggestions } from "./suggestions"
 export const addTypeAhead = (editor: Editor, options: Required<PluginOptions> = {}) => {
   const prefix = editor.getConfig('stylePrefix') || 'gjs-'
 
-  const input = window.document.querySelector(`#${prefix}clm-new`)  as HTMLInputElement
+  const container = editor.getContainer() as HTMLDivElement
+
+  const input = container.querySelector(`#${prefix}clm-new`)  as HTMLInputElement
   // @ts-ignore
   window.tt = typeahead({
     limit: options.suggestions?.limit,
     input: input,
     source: {
       // @ts-ignore
-      local: editor.Canvas.getWindow().tailwind.suggestions
+      local: window._twcss.suggestions || []
     },
     highlight: true,
     templates: {
@@ -29,6 +31,14 @@ export const addTypeAhead = (editor: Editor, options: Required<PluginOptions> = 
   //overwrite the offsetWidth
   const ttList = window.document.querySelector(`.tt-list`)  as HTMLDivElement
   ttList.style.width = '100%'
+
+  // Do not show the selector
+  
+
+  // @ts-ignore
+  container.querySelector(`.${prefix}clm-header-status`).style.display = "none"
+  // @ts-ignore
+  container.querySelector(`.${prefix}clm-sels-info`).style.display = "none"
 }
 
 export const clearTypeahead = (editor: Editor, _options: any = {}) => {

@@ -1,6 +1,6 @@
 import type { Editor } from "grapesjs"
 import { clearTypeahead, addTypeAhead } from "./typeahead"
-import { retrieveTailwindCss, appendDirectives, getComponentAttributes } from "./utils"
+import { retrieveTailwindCss, addDirectives, getComponentAttributes } from "./utils"
 import { regenerateTailwind } from "./suggestions"
 
 export default (editor: Editor, options: any) => {
@@ -18,7 +18,7 @@ export default (editor: Editor, options: any) => {
 
 	cmd.add(cmdAddDirectives, {
 		run(editor) {
-			appendDirectives(editor)
+			addDirectives(editor)
 		}
 	})
 
@@ -56,9 +56,9 @@ export default (editor: Editor, options: any) => {
 		showTailwindSettings() {
 			const title = editor.I18n.t("grapesjs-tailwind-typeahead.modalTitle")
 			// @ts-ignore
-			config = structuredClone(editor.getModel().get("theme"))
+			config = window._twcss.theme
 			// @ts-ignore
-			directives = editor.getModel().get("directives")
+			directives = window._twcss.directives
 
 			// @ts-ignore
 			const content = this.getContent()
@@ -194,13 +194,18 @@ export default (editor: Editor, options: any) => {
 				return
 			}
 
+			// @ts-ignore
+			window._twcss = {
+				directives: this.getDirectivesViewer().getContent(),
+				theme: config
+			}
 			const model = editor.getModel()
 
 			// Store the modified directives & config
 			// @ts-ignore
-			model.set("directives", this.getDirectivesViewer().getContent())
+			//model.set("directives", )
 			// @ts-ignore
-			model.set("theme", config)
+			//model.set("theme", config)
 
 			editor.runCommand("add-directives")
 			editor.runCommand("clear-typeahead")
@@ -381,29 +386,5 @@ export default (editor: Editor, options: any) => {
 			title: editor.I18n.t("grapesjs-tailwind-typeahead.modalTitle")
 		},
 		command: cmdOpenTailwind //Open modal
-	})
-
-	/**
-	 * regenrate tailwind css classes when a selector is removed
-	 */
-	editor.on("selector:remove", (/*selector*/) => {
-		// TODO: not suffisient to regenerate
-		//regenerateTailwind(editor)
-		//change something in theme or directives?
-	})
-
-	// add directives to the website
-	editor.on("storage:start:store", (data: any) => {
-		// @ts-ignore
-		data.directives = editor.getModel().get("directives")
-		// @ts-ignore
-		data.theme = editor.getModel().get("theme")
-	})
-
-	editor.on("storage:end:load", (data: any) => {
-		// @ts-ignore
-		editor.getModel().set("directives", data.directives)
-		// @ts-ignore
-		editor.getModel().set("theme", data.theme)
 	})
 }

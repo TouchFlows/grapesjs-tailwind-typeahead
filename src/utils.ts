@@ -31,7 +31,7 @@ export function removeAll(doc: Document, attr: string) {
 	doc.head.querySelector(`[${attr}]`) != null && Array.from(doc.head.querySelectorAll(`[${attr}]`)).forEach((el) => el.parentElement?.removeChild(el))
 }
 
-export const appendDirectives = (editor: Editor) => {
+export const addDirectives = (editor: Editor) => {
   const pageManager = editor.Pages
   pageManager.getAll().forEach((page) => {
     page.getAllFrames().forEach((frame) => {
@@ -41,7 +41,10 @@ export const appendDirectives = (editor: Editor) => {
       // @ts-ignore
       const el = insert(doc, 'directives', 'style', {type: 'text/tailwindcss'})
       // @ts-ignore
-      el.innerHTML = editor.getModel().get("directives") || '@tailwind base;\n@tailwind components;\n@tailwind utilities;'
+      el.innerHTML = window._twcss.directives || 
+      `@tailwind base;
+@tailwind components;
+@tailwind utilities;`
     })
   })
 }

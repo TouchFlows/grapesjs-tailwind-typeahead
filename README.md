@@ -18,8 +18,8 @@ Find a live demo here [GrapesJS Tailwind CSS Typeahead Demo](https://demo.touchf
 ```html
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <link href="https://unpkg.com/grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.css" rel="stylesheet">
-<script type="module" src="https://unpkg.com/grapesjs"></script>
-<script type="module" src="https://unpkg.com/grapesjs-tailwind-typeahead"></script>
+<script src="https://unpkg.com/grapesjs"></script>
+<script src="https://unpkg.com/grapesjs-tailwind-typeahead"></script>
 
 
 <div id="gjs"></div>
