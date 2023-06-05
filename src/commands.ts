@@ -161,7 +161,7 @@ export default (editor: Editor, options: any) => {
 				this.configViewer = editor.CodeManager.createViewer({
 					codeName: "javascript",
 					mode: "application/ld+json",
-					theme: "hopscotch",
+					theme: options.codeMirrorTheme,
 					readOnly: 0
 					//...themeViewOptions,
 				})
@@ -176,7 +176,7 @@ export default (editor: Editor, options: any) => {
 				// @ts-ignore
 				this.directivesViewer = editor.CodeManager.createViewer({
 					codeName: "htmlmixed",
-					theme: "hopscotch",
+					theme: options.codeMirrorTheme,
 					readOnly: 0
 				})
 			}
@@ -341,7 +341,7 @@ export default (editor: Editor, options: any) => {
 				this.htmlViewer = editor.CodeManager.createViewer({
 					codeName: "htmlmixed",
 					lineNumbers: false,
-					theme: "hopscotch",
+					theme: options.codeMirrorTheme,
 					readOnly: 1
 					//...themeViewOptions,
 				})
@@ -358,7 +358,7 @@ export default (editor: Editor, options: any) => {
 					codeName: "css",
 					lineNumbers: false,
 					mode: "text/css",
-					theme: "hopscotch",
+					theme: options.codeMirrorTheme,
 					readOnly: 1
 				})
 			}
@@ -385,6 +385,7 @@ export default (editor: Editor, options: any) => {
 		attributes: {
 			title: editor.I18n.t("grapesjs-tailwind-typeahead.modalTitle")
 		},
-		command: cmdOpenTailwind //Open modal
+		command: cmdOpenTailwind, //Open modal
+		togglable: false,
 	})
 }

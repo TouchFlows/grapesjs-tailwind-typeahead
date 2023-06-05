@@ -10,9 +10,10 @@ export default (editor: Editor, options: any = {}) => {
 
 		if (!iframe) return
 
-		const { tailwindPlayCdn, plugins } = options
+		const { twCssPlayCdn, twCssPlugins } = options
 
 		const init = () => {
+
 			editor.runCommand('add-directives')
 
 			tailwindSuggestions(editor, iframe, '')
@@ -20,7 +21,7 @@ export default (editor: Editor, options: any = {}) => {
 			editor.runCommand('add-typeahead')
 		}
 
-		const tw = insert(iframe.contentDocument, 'tailwindcss', 'script', {src: tailwindPlayCdn + (plugins.length ? `?plugins=${plugins.join()}` : "")})
+		const tw = insert(iframe.contentDocument, 'tailwindcss', 'script', {src: twCssPlayCdn + (twCssPlugins.length ? `?plugins=${twCssPlugins.join()}` : "")})
 		// @ts-ignore
 		tw.onload = init
 	}

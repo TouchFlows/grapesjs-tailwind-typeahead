@@ -142,11 +142,18 @@ body, html {
 
 | Option | Description | Default |
 |-|-|-
-| `config` | Tailwind CSS configuration | {} |
-| `directives` | Tailwind CSS directives | `@tailwind base; @tailwind components; @tailwind utilities;` |
-| `removeWrapper` | Remove the wrapper (usually body) from html output | true |
-| `removeId` | Remove element id from html output | true | 
+| `twCssPlayCdn` | Tailwind CSS Play CDN | https://cdn.tailwindcss.com" |
+| `twCssTheme` | Tailwind CSS configuration | {} |
+| `twCssDirectives` | Tailwind CSS directives | `@tailwind base; @tailwind components; @tailwind utilities;` |
+| `twCssRemoveWrapper` | Remove the wrapper (usually body) from html output | true |
+| `twCssRemoveId` | Remove element id from html output | true |
+| `twCssDark` | Prepend Tailwind CSS classes with 'dark:' | true |
+| `twCssLimit` | Number of suggestions to show | 12 |
+| `codeMirrorTheme` |Code Editor theme | hopscotch | 
 
+When setting `twCssRemoveId` to true, the HTML Output will be stripped of the IDs, except for those beginning with the GrapesJS Prefix.
+
+All inline styles will be removed.
 
 ## Download
 

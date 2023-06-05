@@ -4,6 +4,7 @@ export default {
         'modalTitle': 'Settings for Tailwind CSS',
         'buttonLabel': 'Save',
         'codeTitle': 'Page HTML and Tailwind CSS',
-        'errorSettings': 'There is an error in your settings, please check'
+        'errorSettings': 'There is an error in your settings, please check',
+        'inputHint': 'Start typing...'
     },
 };

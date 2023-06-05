@@ -50,6 +50,7 @@ export const addDirectives = (editor: Editor) => {
 }
 
 export function getComponentAttributes(editor: Editor, options: any, attributes: any) {
+  const prefix = editor.getConfig('stylePrefix') || 'gjs-'
 	const cssRules = editor.Css
 	let style: string = ""
 	// @ts-ignore
@@ -62,8 +63,23 @@ export function getComponentAttributes(editor: Editor, options: any, attributes:
 			})
       if(style.length) attributes.style = style
 	}
-	options.removeId && delete attributes.id
+  // remove if id does not start with the prefix
+	options.removeId && !attributes.id.startsWith(prefix) && delete attributes.id
 	return attributes
 }
 
+/*export async function generateTailwindCss(html: string) {
+  return (await postcss([tailwindcss({
+    content: [{ raw:html }],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  }), autoprefixer, cssnano])
+  .process(`
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+  `)).css
+}*/
 

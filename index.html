@@ -1,136 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GrapesJS Tailwind TypeAhead</title>
-    <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/grapesjs"></script>
-    <script type="module">
-      import tailwind from './src/index.ts'
-      window['grapesjs-tailwind-typeahead'] = tailwind
-    </script>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
+		<title>GrapesJS Tailwind TypeAhead</title>
+		<link
+			href="https://unpkg.com/grapesjs/dist/css/grapes.min.css"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/grapesjs"></script>
+		<script type="module">
+			import tailwind from "./src/index.ts"
+			window["grapesjs-tailwind-typeahead"] = tailwind
+		</script>
 
-    <style>
-      body,
-      html {
-        height: 100%;
-        margin: 0;
-      }
-    </style>
-  </head>
-  <body>
+		<style>
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div
+			id="gjs"
+			style="height: 0px; overflow: hidden"
+		>
+			<div class="p-6 m-6">This is a demo content from index.html. You can use this template file for development purpose. It will be stored in your git repository, true</div>
+		</div>
 
-    <div id="gjs" style="height:0px; overflow:hidden">
-      <div class="p-6 m-6">
-        This is a demo content from index.html. You can use this template file for
-        development purpose. It will be stored in your git repository, true
-      </div>
-    </div>
+		<script type="text/javascript">
+			const config = {
+				content: [],
+				theme: {
+					extend: {
+						colors: {
+							greyjoy: "#9FBEAF",
+							pacific: "#00ADC6",
+							dune: "#FCD385",
+							apache: "#BC9D45",
+							"viridian-green": "#668980",
+							azalea: "#E196AA",
+							logan: "#9190AC",
+							acid: "#F0FF93",
+							"aqua-green": "#9FD9B4",
+							"coton-candy": "#FAD6DE",
+							igloo: "#B5D0EE"
+						},
+						width: {
+							fhd: "1920px",
+							"fhd-1/2": "960px"
+						},
+						height: {
+							fhd: "1080px"
+						}
+					}
+				},
+				plugins: []
+			}
 
-
-    <script type="text/javascript">
-      const config = {
-        content: [],
-        theme: {
-          extend: {
-            colors: {
-              greyjoy: "#9FBEAF",
-              pacific: "#00ADC6",
-              dune: "#FCD385",
-              apache: "#BC9D45",
-              "viridian-green": "#668980",
-              azalea: "#E196AA",
-              logan: "#9190AC",
-              acid: "#F0FF93",
-              "aqua-green": "#9FD9B4",
-              "coton-candy": "#FAD6DE",
-              igloo: "#B5D0EE",
-            },
-            width: {
-              fhd: "1920px",
-              "fhd-1/2": "960px",
-            },
-            height: {
-              fhd: "1080px",
-            },
-          }
-        }
-      }
-
-      const directives = 
-      `@tailwind base;
+			const directives = `@tailwind base;
       @tailwind components;
       @tailwind utilities;`
-      // Wait for the plugin to be injected by the dev server
-      const escapeName = (name) => `${name}`.trim().replace(/([^a-z0-9\[\]\w-:/]+)/gi, '-')
+			// Wait for the plugin to be injected by the dev server
+			const escapeName = (name) => `${name}`.trim().replace(/([^a-z0-9\[\]\w-:/]+)/gi, "-")
 
-      setTimeout(() => {
-        window.editor = grapesjs.init({
-          height: '100%',
-          container: '#gjs',
-          showOffsets: true,
-          fromElement: true,
-          noticeOnUnload: false,
-          storageManager: {
-            type: 'local',
-            autosave: true,
-            autoload: true,
-          },
-          deviceManager: {
-            default: '',
-            devices: [
-              {
-                id: 'desktop',
-                name: 'desktop',
-                width: '',
-              },
-              {
-                id: 'sm',
-                name: 'sm: 640px',
-                width: '640px',
-                widthMedia: '640px',
-                maxWidth: '768px',
-              },
-              {
-                id: 'md',
-                name: 'md: 768px',
-                width: '768px',
-                widthMedia: '768px',
-              },
-              {
-                id: 'lg',
-                name: 'lg: 1024px',
-                width: '1024px',
-                widthMedia: '1024px',
-              },
-              {
-                id: 'xl',
-                name: 'xl: 1280px',
-                width: '1280px',
-                widthMedia: '1280px',
-              },
-              {
-                id: '2xl',
-                name: '2xl: 1536px',
-                width: '1536px',
-                widthMedia: '1536px',
-              },
-            ],
-          },
-          styleManager: {
-            custom: true,
-          },
-          selectorManager: {
-            escapeName,
-            componentFirst: true,
-          },
-          plugins: ['grapesjs-tailwind-typeahead'],
-          pluginsOpts: {
-            'grapesjs-tailwind-typeahead': {removeId: true, removeWrapper: true}
-          }
-        });
-      }, 100);
-    </script>
-  </body>
+			const pluginOptions = {
+				twCssRemoveId: true,
+				twCssRemoveWrapper: true,
+				//codeMirrorTheme: "midnight"
+			}
+
+			setTimeout(() => {
+				window.editor = grapesjs.init({
+					height: "100%",
+					container: "#gjs",
+					showOffsets: true,
+					fromElement: true,
+					noticeOnUnload: false,
+					storageManager: {
+						type: "local",
+						autosave: true,
+						autoload: true
+					},
+					deviceManager: {
+						default: "",
+						devices: [
+							{
+								id: "desktop",
+								name: "desktop",
+								width: ""
+							},
+							{
+								id: "sm",
+								name: "sm: 640px",
+								width: "640px",
+								widthMedia: "640px",
+								maxWidth: "768px"
+							},
+							{
+								id: "md",
+								name: "md: 768px",
+								width: "768px",
+								widthMedia: "768px"
+							},
+							{
+								id: "lg",
+								name: "lg: 1024px",
+								width: "1024px",
+								widthMedia: "1024px"
+							},
+							{
+								id: "xl",
+								name: "xl: 1280px",
+								width: "1280px",
+								widthMedia: "1280px"
+							},
+							{
+								id: "2xl",
+								name: "2xl: 1536px",
+								width: "1536px",
+								widthMedia: "1536px"
+							}
+						]
+					},
+					styleManager: {
+						custom: true
+					},
+					selectorManager: {
+						escapeName,
+						componentFirst: true
+					},
+					plugins: ["grapesjs-tailwind-typeahead"],
+					pluginsOpts: {
+						"grapesjs-tailwind-typeahead": pluginOptions
+					}
+				})
+			}, 100)
+		</script>
+	</body>
 </html>

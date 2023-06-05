@@ -1,4 +1,5 @@
 import type { Editor } from "grapesjs"
+//import headlessui from "@headlessui/tailwindcss"
 
 /**
  * Force Tailwind regeneration
@@ -10,15 +11,17 @@ export const regenerateTailwind = (editor: Editor) => {
 	// @ts-ignore
 	const tailwind = editor.Canvas.getWindow().tailwind
 	// @ts-ignore
-	tailwind.config = editor.getModel().get("theme")
+	tailwind.config = window._twcss.theme
 	tailwind.resolveConfig(tailwind.config)
 }
 
-export const tailwindSuggestions = (_editor: Editor, frame: HTMLIFrameElement, devicePrefix: string) => {
+export const tailwindSuggestions = (_editor: Editor, frame: HTMLIFrameElement, devicePrefix: string, darkTheme: string = '') => {
 	// @ts-ignore
 	const tailwind = frame.contentWindow?.tailwind
 	// @ts-ignore
 	tailwind.config = window._twcss.theme || {"theme": {}}
+	//tailwind.config.plugins[headlessui({ prefix: 'ui' })]
+	console.log(tailwind.config)
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
 
 	//const fullConfig =  regenerateTailwind(editor, frame)
@@ -184,7 +187,7 @@ export const tailwindSuggestions = (_editor: Editor, frame: HTMLIFrameElement, d
 						].includes(lastSelector)
 							? tag
 							: `${tag}-${nodeOrName[0]}`
-					entries.push({ label: `${devicePrefix}${label}`, value: nodeOrName[1], property: property })
+					entries.push({ label: `${darkTheme}${devicePrefix}${label}`, value: nodeOrName[1], property: property })
 				}
 			}
 		})
@@ -210,10 +213,10 @@ export const tailwindSuggestions = (_editor: Editor, frame: HTMLIFrameElement, d
 			}
 		}
 	}
-	entries.push({ label: `${devicePrefix}grid`, value: "display:grid", property: "grid" })
-	entries.push({ label: `${devicePrefix}flex`, value: "display:flex", property: "flex" })
-	entries.push({ label: `${devicePrefix}uppercase`, value: "uppercase", property: "text" })
-	entries.push({ label: `${devicePrefix}lowercase`, property: "text" })
+	entries.push({ label: `${darkTheme}${devicePrefix}grid`, value: "display:grid", property: "grid" })
+	entries.push({ label: `${darkTheme}${devicePrefix}flex`, value: "display:flex", property: "flex" })
+	entries.push({ label: `${darkTheme}${devicePrefix}uppercase`, value: "uppercase", property: "text" })
+	entries.push({ label: `${darkTheme}${devicePrefix}lowercase`, property: "text" })
 	// @ts-ignore
 	window._twcss.suggestions = entries
 }
