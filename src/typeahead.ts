@@ -47,7 +47,7 @@ export const clearTypeahead = (editor: Editor, _options: any = {}) => {
   let devicePrefix = ['desktop', 'full'].includes(selected.id) ? '' : `${selected.id}:`
 
   // @ts-ignore
-  let darkTheme = window_twcss.dark ? 'dark:' : ''
+  let darkTheme = window._twcss.dark ? 'dark:' : ''
 
   tailwindSuggestions(editor, editor.Canvas.getFrameEl(), devicePrefix, darkTheme)
 

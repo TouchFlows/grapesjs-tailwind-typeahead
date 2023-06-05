@@ -21,7 +21,6 @@ export const tailwindSuggestions = (_editor: Editor, frame: HTMLIFrameElement, d
 	// @ts-ignore
 	tailwind.config = window._twcss.theme || {"theme": {}}
 	//tailwind.config.plugins[headlessui({ prefix: 'ui' })]
-	console.log(tailwind.config)
 	const fullConfig = tailwind.resolveConfig(tailwind.config)
 
 	//const fullConfig =  regenerateTailwind(editor, frame)

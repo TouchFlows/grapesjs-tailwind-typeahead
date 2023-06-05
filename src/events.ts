@@ -21,7 +21,9 @@ export default (editor: Editor, options: any) => {
       // @ts-ignore
       directives: window._twcss.directives,
       // @ts-ignore
-      theme: window._twcss.theme
+      theme: window._twcss.theme,
+			// @ts-ignore
+			dark: window._twcss.dark
     }
 	})
 
@@ -29,8 +31,9 @@ export default (editor: Editor, options: any) => {
     
     // @ts-ignore
     window._twcss = {
-      directives: data.tailwind?.directives || options.directives,
-      theme: data.tailwind?.theme || options.theme
+      directives: data.tailwind?.directives || options.twCssDirectives,
+      theme: data.tailwind?.theme || options.twCssTheme,
+			dark: data.tailwind?.dark || options.twCssDark
     }
 
 	})

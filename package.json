@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Grapesjs Tailwind Typeahead Plugin",
   "main": "dist/grapesjs-tailwind-typeahead.umd.js",
   "module": "dist/grapesjs-tailwind-typeahead.mjs",
