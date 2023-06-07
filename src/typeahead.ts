@@ -19,12 +19,14 @@ export const addTypeAhead = (editor: Editor, options: Required<PluginOptions> = 
     highlight: true,
     templates: {
       suggestion: (item: any, _resultSet: any) => {
-          
-        const propSpan =
-        item.value && item.value.includes("#") || item.property.includes("rgb") || item.value.includes("gradient") // show colour preview
-            ? `<span class="preview" style="background-color: ${item.value}" title="${item.value}"></span>`
-            : `<span class="property" title="${item.value.includes("rem") ? parseFloat(item.value.replace("rem")) * 16 + "px" : item.value}">${item.value}</span>`
-        return `${propSpan}<div class="text">${item ? item.label : ''}</div>`
+          if(item) {
+            const propSpan =
+            item.value.includes("#") || item.property.includes("rgb") ||  item.value.includes("gradient") // show colour preview
+                ? `<span class="preview" style="background-color: ${item.value}" title="${item.value}"></span>`
+                : `<span class="property" title="${item.value.includes("rem") ? parseFloat(item.value.replace("rem")) * 16 + "px" : item.value}">${item.value}</span>`
+            return `${propSpan}<div class="text">${item ? item.label : ''}</div>`
+          }
+        return ''
       }
     }
   })
