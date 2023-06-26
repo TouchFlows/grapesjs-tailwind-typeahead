@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-tailwind-typeahead",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "description": "Grapesjs Tailwind Typeahead Plugin",
   "main": "dist/grapesjs-tailwind-typeahead.umd.js",
   "module": "dist/grapesjs-tailwind-typeahead.mjs",
@@ -24,20 +24,23 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build",
-    "build:debug": "vite build --debug",
+    "build": "tsc & vite build",
+    "build:debug": "tsc & vite build --debug",
     "preview": "vite preview",
     "bump": "npm version patch -m 'Release v%s'"
   },
   "keywords": [
     "grapesjs",
-    "plugin"
+    "plugin",
+    "typeahead"
   ],
+  "peerDependencies": {
+    "typeahead-standalone": "^4.21.0",
+    "grapesjs": "^0.21.2"
+  },
   "devDependencies": {
-    "@types/node": "^20.2.5",
-    "grapesjs": "^0.21.2",
+    "@types/node": "^20.2.5",    
     "rollup-plugin-typescript-paths": "^1.4.0",
-    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0"

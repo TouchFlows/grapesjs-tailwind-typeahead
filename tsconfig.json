@@ -2,16 +2,16 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
     "skipLibCheck": true,
     "strictNullChecks": false,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "resolveJsonModule": true, 
-    "isolatedModules": false, // true
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "noEmit": true,
 
     /* Linting */
@@ -23,10 +23,7 @@
     "importHelpers": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "baseUrl": "./",
-    "paths": {
-      "*": ["src/*", "node_modules/*"]
-    },
   },
   "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

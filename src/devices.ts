@@ -1,5 +1,5 @@
 const devices = {
-  default: 'hd',
+  default: 'full',
   devices: [
     {
       id: 'default',

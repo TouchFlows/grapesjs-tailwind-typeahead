@@ -19,6 +19,7 @@ Find a live demo here [GrapesJS Tailwind CSS Typeahead Demo](https://demo.touchf
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <link href="https://unpkg.com/grapesjs-tailwind-typeahead/dist/grapesjs-tailwind-typeahead.css" rel="stylesheet">
 <script src="https://unpkg.com/grapesjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/typeahead-standalone"></script>
 <script src="https://unpkg.com/grapesjs-tailwind-typeahead"></script>
 
 

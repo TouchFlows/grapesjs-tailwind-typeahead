@@ -1,4 +1,4 @@
-import typeahead from './typeahead/typeahead'
+import typeahead from 'typeahead-standalone' //'./typeahead/typeahead'
 import type { Editor, PluginOptions } from 'grapesjs'
 import { tailwindSuggestions } from "./suggestions"
 
